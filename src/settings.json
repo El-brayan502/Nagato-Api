@@ -2,7 +2,7 @@
   "name": "Nagato-Api UI",
   "version": "v1.0.0",
   "description": "Simple and easy to use API.",
-  "bannerImage": "/src/banner.jpg",
+  "bannerImage": "thumbnail.jpg",
   "header": {
     "status": "Online!"
   },
