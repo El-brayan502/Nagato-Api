@@ -1,64 +1,64 @@
 {
   "name": "Nagato-Api UI",
   "version": "v1.0.0",
-  "description": "Simple and easy to use API.",
+  "description": "API simple y fácil de usar.",
   "bannerImage": "thumbnail.jpg",
   "header": {
-    "status": "Online!"
+    "status": "¡En línea!"
   },
   "apiSettings": {
-    "creator": "FlowFalcon", 
+    "creator": "FlowFalcon",
     "apikey": ["falcon-api"]
   },
   "categories": [
     {
-      "name": "AI (Artificial Intelligence)",
+      "name": "IA (Inteligencia Artificial)",
       "items": [
         {
           "name": "LuminAI",
-          "desc": "Talk with luminai",
+          "desc": "Habla con LuminAI",
           "path": "/ai/luminai?text=",
-          "status": "ready",
+          "status": "listo",
           "params": {
-            "text": "Text for luminai to respond to"
+            "text": "Texto para que LuminAI responda"
           }
         },
-       {
+        {
           "name": "HydroMind",
-          "desc": "See the list of supported AI models here: https://mind.hydrooo.web.id",
+          "desc": "Consulta la lista de modelos de IA soportados aquí: https://mind.hydrooo.web.id",
           "path": "/ai/hydromind?text=&model=",
-          "status": "ready",
+          "status": "listo",
           "params": {
-            "text": "Teks atau perintah untuk chat AI",
-            "model":"1See the list of supported AI models here: https://mind.hydrooo.web.id"
+            "text": "Texto o comando para el chat de IA",
+            "model": "Consulta la lista de modelos de IA soportados aquí: https://mind.hydrooo.web.id"
           }
         }
       ]
     },
     {
-      "name": "Random",
+      "name": "Aleatorio",
       "items": [
         {
           "name": "Blue Archive",
-          "desc": "Blue Archive Random Images",
+          "desc": "Imágenes aleatorias de Blue Archive",
           "path": "/random/ba",
-          "status": "ready"
+          "status": "listo"
         }
       ]
     },
     {
-      "name": "Search Tools",
+      "name": "Herramientas de Búsqueda",
       "items": [
         {
           "name": "YouTube",
-          "desc": "Video search",
+          "desc": "Búsqueda de videos",
           "path": "/search/youtube?q=",
-          "status": "ready",
+          "status": "listo",
           "params": {
-            "q": "Search query"
+            "q": "Consulta de búsqueda"
           }
         }
       ]
-    }               
+    }
   ]
 }
