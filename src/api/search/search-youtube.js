@@ -1,23 +1,41 @@
-const ytdl = require('ytdl-core');
-const fs = require('fs');
-const express = require('express');
-const app = express();
+// src/api/search/download-ytmp3.js
+const axios = require('axios');
 
-app.get('/download/ytmp3', async (req, res) => {
-    const { url } = req.query;
-    if (!url) return res.status(400).json({ status: false, error: 'URL requerida' });
+module.exports = function(app) {
+    app.get('/download/ytmp3', async (req, res) => {
+        const { url } = req.query;
+        
+        if (!url) {
+            return res.status(400).json({
+                status: false,
+                error: 'Debes enviar una URL de YouTube'
+            });
+        }
 
-    try {
-        const info = await ytdl.getInfo(url);
-        const title = info.videoDetails.title;
-        const stream = ytdl(url, { filter: 'audioonly', quality: 'highestaudio' });
+        try {
+            // Llamamos a la API externa
+            const response = await axios.get(`https://ruby-core.vercel.app/api/download/youtube/mp3?url=${encodeURIComponent(url)}`);
+            
+            if (!response.data || response.data.error) {
+                return res.status(500).json({
+                    status: false,
+                    error: response.data?.error || 'No se pudo obtener el MP3'
+                });
+            }
 
-        res.setHeader('Content-Disposition', `attachment; filename="${title}.mp3"`);
-        res.setHeader('Content-Type', 'audio/mpeg');
-        stream.pipe(res);
-    } catch (err) {
-        res.status(500).json({ status: false, error: err.message });
-    }
-});
+            // Retornamos los datos al bot
+            res.status(200).json({
+                status: true,
+                title: response.data.title,   // Título del video
+                thumbnail: response.data.thumbnail, // Miniatura
+                downloadUrl: response.data.result // URL del MP3
+            });
 
-module.exports = app;
+        } catch (err) {
+            res.status(500).json({
+                status: false,
+                error: err.message
+            });
+        }
+    });
+};
