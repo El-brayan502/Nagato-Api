@@ -45,12 +45,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     let currentApiData = null; // Untuk menyimpan data API yang sedang ditampilkan di modal
     let allNotifications = []; // Untuk menyimpan semua notifikasi dari JSON
 
-    // --- Fungsi Utilitas ---
-    const showToast = (message, type = 'info', title = 'Notifikasi') => {
-        if (!DOM.notificationToast) return;
-        const toastBody = DOM.notificationToast.querySelector('.toast-body');
-        const toastTitleEl = DOM.notificationToast.querySelector('.toast-title');
-        const toastIcon = DOM.notificationToast.querySelector('.toast-icon');
+    // --- Funciones Utilitarias ---
+const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
+    if (!DOM.notificationToast) return;
+    const toastBody = DOM.notificationToast.querySelector('.toast-body');
+    const toastTitleEl = DOM.notificationToast.querySelector('.toast-title');
+    const toastIcon = DOM.notificationToast.querySelector('.toast-icon');
         
         toastBody.textContent = message;
         toastTitleEl.textContent = title;
