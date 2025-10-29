@@ -51,19 +51,19 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
     const toastBody = DOM.notificationToast.querySelector('.toast-body');
     const toastTitleEl = DOM.notificationToast.querySelector('.toast-title');
     const toastIcon = DOM.notificationToast.querySelector('.toast-icon');
-        
+
         toastBody.textContent = message;
         toastTitleEl.textContent = title;
-        
+
         const typeConfig = {
             success: { color: 'var(--success-color)', icon: 'fa-check-circle' },
             error: { color: 'var(--error-color)', icon: 'fa-exclamation-circle' },
             info: { color: 'var(--primary-color)', icon: 'fa-info-circle' },
             notification: { color: 'var(--accent-color)', icon: 'fa-bell' }
         };
-        
+
         const config = typeConfig[type] || typeConfig.info;
-        
+
         DOM.notificationToast.style.borderLeftColor = config.color;
         toastIcon.className = `toast-icon fas ${config.icon} me-2`;
         toastIcon.style.color = config.color;
@@ -86,7 +86,7 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
             btnElement.innerHTML = '<i class="fas fa-check"></i>';
             btnElement.classList.add('copy-success');
             showToast('Berhasil disalin ke clipboard!', 'success');
-            
+
             setTimeout(() => {
                 btnElement.innerHTML = originalIcon;
                 btnElement.classList.remove('copy-success');
@@ -128,7 +128,7 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
             sessionStorage.setItem('sessionReadNotificationIds', JSON.stringify(ids));
         }
     };
-    
+
     const updateNotificationBadge = () => {
         if (!DOM.notificationBadge || !allNotifications.length) {
              if(DOM.notificationBadge) DOM.notificationBadge.classList.remove('active');
@@ -174,7 +174,7 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
         } else {
             showToast('Tidak ada notifikasi baru saat ini.', 'info');
         }
-        
+
         updateNotificationBadge(); 
     };
 
@@ -185,7 +185,7 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
         initSideNav();
         initModal();
         await loadNotifications(); 
-        
+
         try {
             const response = await fetch('/src/settings.json');
             if (!response.ok) throw new Error(`Gagal memuat pengaturan: ${response.status}`);
@@ -208,7 +208,7 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
         if (DOM.themeToggle) DOM.themeToggle.addEventListener('change', handleThemeToggle);
         if (DOM.searchInput) DOM.searchInput.addEventListener('input', debounce(handleSearch, 300));
         if (DOM.clearSearchBtn) DOM.clearSearchBtn.addEventListener('click', clearSearch);
-        
+
         if (DOM.notificationBell) DOM.notificationBell.addEventListener('click', handleNotificationBellClick);
 
         if (DOM.apiContent) DOM.apiContent.addEventListener('click', handleApiGetButtonClick);
@@ -233,7 +233,7 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
             DOM.body.classList.remove("no-scroll");
         }, 500);
     };
-    
+
     const animateLoadingDots = () => {
         const loadingDots = DOM.loadingScreen.querySelector(".loading-dots");
         if (loadingDots) {
@@ -272,7 +272,7 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
              DOM.navCollapseBtn.setAttribute('aria-expanded', !isCollapsed);
         }
     };
-    
+
     const toggleSideNavCollapse = () => {
         if (!DOM.sideNav || !DOM.mainWrapper || !DOM.navCollapseBtn) return;
         DOM.sideNav.classList.toggle('collapsed');
@@ -298,17 +298,17 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
             DOM.menuToggle.setAttribute('aria-expanded', 'false');
         }
     };
-    
+
     const handleScroll = () => {
         const scrollPosition = window.scrollY;
         const headerElement = document.querySelector('.main-header'); 
         const headerHeight = headerElement ? parseInt(getComputedStyle(headerElement).height) : 70; 
-        
+
         document.querySelectorAll('section[id]').forEach(section => {
             const sectionTop = section.offsetTop - headerHeight - 20; 
             const sectionHeight = section.offsetHeight;
             const sectionId = section.getAttribute('id');
-            
+
             const navLink = document.querySelector(`.side-nav-link[href="#${sectionId}"]`);
             if (navLink) {
                 if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
@@ -334,7 +334,7 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
     const setPageContent = (element, value, fallback = '') => {
         if (element) element.textContent = value || fallback;
     };
-    
+
     const setPageAttribute = (element, attribute, value, fallback = '') => {
         if (element) element.setAttribute(attribute, value || fallback);
     };
@@ -369,10 +369,10 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
                 DOM.dynamicImage.src = '/src/banner.jpg'; // Fallback jika error loading
                 DOM.dynamicImage.alt = "API Banner Fallback";
                 DOM.dynamicImage.style.display = ''; // Pastikan tetap tampil
-                showToast('Gagal memuat gambar banner, menggunakan gambar default.', 'warning');
+                showToast('No se pudo cargar la imagen del banner; se utilizará la imagen predeterminada.', 'warning');
             };
         }
-        
+
         if (DOM.apiLinksContainer) {
             DOM.apiLinksContainer.innerHTML = ''; 
             const defaultLinks = [{ url: "https://github.com/El-brayan502", name: "Creador GitHub", icon: "fab fa-github" }];
@@ -386,11 +386,11 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
                 link.className = 'api-link btn btn-primary'; 
                 link.style.animationDelay = `${index * 0.1}s`;
                 link.setAttribute('aria-label', name);
-                
+
                 const iconElement = document.createElement('i');
                 iconElement.className = icon || 'fas fa-external-link-alt'; 
                 iconElement.setAttribute('aria-hidden', 'true');
-                
+
                 link.appendChild(iconElement);
                 link.appendChild(document.createTextNode(` ${name}`));
                 DOM.apiLinksContainer.appendChild(link);
@@ -408,17 +408,17 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
 
         settings.categories.forEach((category, categoryIndex) => {
             const sortedItems = category.items.sort((a, b) => a.name.localeCompare(b.name));
-            
+
             const categorySection = document.createElement('section'); 
             categorySection.id = `category-${category.name.toLowerCase().replace(/\s+/g, '-')}`;
             categorySection.className = 'category-section';
             categorySection.style.animationDelay = `${categoryIndex * 0.15}s`;
             categorySection.setAttribute('aria-labelledby', `category-title-${categoryIndex}`);
-            
+
             const categoryHeader = document.createElement('h3');
             categoryHeader.id = `category-title-${categoryIndex}`;
             categoryHeader.className = 'category-header';
-            
+
             if (category.icon) { 
                 const iconEl = document.createElement('i');
                 iconEl.className = `${category.icon} me-2`;
@@ -427,7 +427,7 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
             }
             categoryHeader.appendChild(document.createTextNode(category.name));
             categorySection.appendChild(categoryHeader);
-            
+
             if (category.image) {
                 const img = document.createElement('img');
                 img.src = category.image;
@@ -439,7 +439,7 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
 
             const itemsRow = document.createElement('div');
             itemsRow.className = 'row'; 
-            
+
             sortedItems.forEach((item, itemIndex) => {
                 const itemCol = document.createElement('div');
                 itemCol.className = 'col-12 col-md-6 col-lg-4 api-item'; 
@@ -459,17 +459,17 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
                 itemTitle.id = `api-title-${categoryIndex}-${itemIndex}`;
                 itemTitle.className = 'mb-1'; 
                 itemTitle.textContent = item.name;
-                
+
                 const itemDesc = document.createElement('p');
                 itemDesc.className = 'text-muted mb-0';
                 itemDesc.textContent = item.desc;
-                
+
                 cardInfo.appendChild(itemTitle);
                 cardInfo.appendChild(itemDesc);
-                
+
                 const actionsDiv = document.createElement('div');
                 actionsDiv.className = 'api-actions mt-auto'; 
-                
+
                 const getBtn = document.createElement('button');
                 getBtn.type = 'button';
                 getBtn.className = 'btn get-api-btn btn-sm'; 
@@ -480,7 +480,7 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
                 if (item.params) getBtn.dataset.apiParams = JSON.stringify(item.params);
                 if (item.innerDesc) getBtn.dataset.apiInnerDesc = item.innerDesc;
                 getBtn.setAttribute('aria-label', `Dapatkan detail untuk ${item.name}`);
-                
+
                 const status = item.status || "ready";
                 const statusConfig = {
                     ready: { class: "status-ready", icon: "fa-circle", text: "Ready" },
@@ -492,23 +492,23 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
                 if (status === 'error' || status === 'update') {
                     getBtn.disabled = true;
                     apiCard.classList.add('api-card-unavailable');
-                    getBtn.title = `API ini sedang dalam status '${status}', sementara tidak dapat digunakan.`;
+                    getBtn.title = `Esta API se encuentra actualmente en estado de  '${status}', Temporalmente inutilizable. `;
                 }
 
                 const statusIndicator = document.createElement('div');
                 statusIndicator.className = `api-status ${currentStatus.class}`;
                 statusIndicator.title = `Status: ${currentStatus.text}`;
                 statusIndicator.innerHTML = `<i class="fas ${currentStatus.icon} me-1" aria-hidden="true"></i><span>${currentStatus.text}</span>`;
-                
+
                 actionsDiv.appendChild(getBtn);
                 actionsDiv.appendChild(statusIndicator);
-                
+
                 apiCard.appendChild(cardInfo);
                 apiCard.appendChild(actionsDiv);
                 itemCol.appendChild(apiCard);
                 itemsRow.appendChild(itemCol); 
             });
-            
+
             categorySection.appendChild(itemsRow); 
             DOM.apiContent.appendChild(categorySection);
         });
@@ -528,7 +528,7 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
             </div>
         `;
     };
-    
+
     // --- Fungsi Pencarian ---
     const handleSearch = () => {
         if (!DOM.searchInput || !DOM.apiContent) return;
@@ -543,7 +543,7 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
             const desc = (item.dataset.desc || '').toLowerCase();
             const category = (item.dataset.category || '').toLowerCase();
             const matches = name.includes(searchTerm) || desc.includes(searchTerm) || category.includes(searchTerm);
-            
+
             item.style.display = matches ? '' : 'none';
             if (matches) {
                 visibleCategories.add(item.closest('.category-section'));
@@ -556,7 +556,7 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
 
         const noResultsMsg = DOM.apiContent.querySelector('#noResultsMessage') || createNoResultsMessage();
         const allHidden = Array.from(visibleCategories).length === 0 && searchTerm.length > 0;
-        
+
         if (allHidden) {
             noResultsMsg.querySelector('span').textContent = `"${searchTerm}"`;
             noResultsMsg.style.display = 'flex';
@@ -609,7 +609,7 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
             params: getApiBtn.dataset.apiParams ? JSON.parse(getApiBtn.dataset.apiParams) : null,
             innerDesc: getApiBtn.dataset.apiInnerDesc
         };
-        
+
         setupModalForApi(currentApiData);
         DOM.modal.instance.show();
     };
@@ -619,7 +619,7 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
         DOM.modal.desc.textContent = apiData.desc;
         DOM.modal.content.innerHTML = ''; 
         DOM.modal.endpoint.textContent = `${window.location.origin}${apiData.path.split('?')[0]}`; 
-        
+
         DOM.modal.spinner.classList.add('d-none');
         DOM.modal.content.classList.add('d-none');
         DOM.modal.container.classList.add('d-none');
@@ -648,12 +648,12 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
 
                 const labelContainer = document.createElement('div');
                 labelContainer.className = 'param-label-container';
-                
+
                 const label = document.createElement('label');
                 label.className = 'form-label';
                 label.textContent = paramKey;
                 label.htmlFor = `param-${paramKey}`;
-                
+
                 const requiredSpan = document.createElement('span');
                 requiredSpan.className = 'required-indicator ms-1';
                 requiredSpan.textContent = '*';
@@ -669,7 +669,7 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
                     labelContainer.appendChild(tooltipIcon);
                 }
                 paramGroup.appendChild(labelContainer);
-                
+
                 const inputContainer = document.createElement('div');
                 inputContainer.className = 'input-container';
                 const inputField = document.createElement('input');
@@ -700,7 +700,7 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
             handleApiRequest(`${window.location.origin}${apiData.path}`, apiData.name);
         }
     };
-    
+
     const validateModalInputs = () => {
         const inputs = DOM.modal.queryInputContainer.querySelectorAll('input[required]');
         const allFilled = Array.from(inputs).every(input => input.value.trim() !== '');
@@ -752,7 +752,7 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
             setTimeout(() => DOM.modal.submitBtn.classList.remove('shake-animation'), 500);
             return;
         }
-        
+
         DOM.modal.submitBtn.disabled = true;
         DOM.modal.submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Memproses...';
 
@@ -765,7 +765,7 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
                  if (DOM.modal.queryInputContainer.firstChild) DOM.modal.queryInputContainer.firstChild.style.display = 'none';
             }, 300);
         }
-        
+
         await handleApiRequest(apiUrlWithParams, currentApiData.name);
     };
 
@@ -794,13 +794,13 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
                 img.src = imageUrl;
                 img.alt = apiName;
                 img.className = 'response-image img-fluid rounded shadow-sm fade-in';
-                
+
                 const downloadBtn = document.createElement('a'); 
                 downloadBtn.href = imageUrl;
                 downloadBtn.download = `${apiName.toLowerCase().replace(/\s+/g, '-')}.${blob.type.split('/')[1] || 'png'}`;
                 downloadBtn.className = 'btn btn-primary mt-3 w-100';
                 downloadBtn.innerHTML = '<i class="fas fa-download me-2"></i> Unduh Gambar';
-                
+
                 DOM.modal.content.appendChild(img);
                 DOM.modal.content.appendChild(downloadBtn);
 
@@ -826,7 +826,7 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
             const errorHtml = `
                 <div class="error-container text-center p-3">
                     <i class="fas fa-exclamation-triangle fa-2x text-danger mb-2"></i>
-                    <h6 class="text-danger">Terjadi Kesalahan</h6>
+                    <h6 class="text-danger">Hay un error</h6>
                     <p class="text-muted small">${error.message || 'Tidak dapat mengambil data dari server.'}</p>
                     ${currentApiData && currentApiData.path.split('?')[1] ? 
                     `<button class="btn btn-sm btn-outline-primary mt-2 retry-query-btn">
@@ -865,7 +865,7 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
              }
         }
     };
-    
+
     // --- Fungsi Pembantu untuk Tampilan Kode ---
     const syntaxHighlightJson = (json) => {
         json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -939,7 +939,7 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
             indicator.innerHTML = '(<i class="fas fa-chevron-down"></i> Buka)';
         }
     };
-    
+
     // --- Observasi Item API untuk Animasi ---
     const observeApiItems = () => {
         const observer = new IntersectionObserver((entries) => {
