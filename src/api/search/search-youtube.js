@@ -1,25 +1,24 @@
-module.exports = function(app) {
-    const yts = require('yt-search');
-    app.get('/search/youtube', async (req, res) => {
-        const { q } = req.query;
-        if (!q) {
-            return res.status(400).json({ status: false, error: 'Query is required' });
-        }
-        try {
-            const ytResults = await yts.search(q);
-            const ytTracks = ytResults.videos.map(video => ({
-                title: video.title,
-                channel: video.author.name,
-                duration: video.duration.timestamp,
-                imageUrl: video.thumbnail,
-                link: video.url
-            }));
-            res.status(200).json({
-                status: true,
-                result: ytTracks
-            });
-        } catch (error) {
-            res.status(500).json({ status: false, error: error.message });
-        }
-    });
-}
+
+const ytdl = require('ytdl-core');
+const fs = require('fs');
+const express = require('express');
+const app = express();
+
+app.get('/download/ytmp3', async (req, res) => {
+    const { url } = req.query;
+    if (!url) return res.status(400).json({ status: false, error: 'URL requerida' });
+
+    try {
+        const info = await ytdl.getInfo(url);
+        const title = info.videoDetails.title;
+        const stream = ytdl(url, { filter: 'audioonly', quality: 'highestaudio' });
+
+        res.setHeader('Content-Disposition', `attachment; filename="${title}.mp3"`);
+        res.setHeader('Content-Type', 'audio/mpeg');
+        stream.pipe(res);
+    } catch (err) {
+        res.status(500).json({ status: false, error: err.message });
+    }
+});
+
+module.exports = app;
