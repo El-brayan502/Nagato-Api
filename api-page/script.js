@@ -346,12 +346,12 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
         const creator = settings.apiSettings?.creator || 'FlowFalcon';
 
         setPageContent(DOM.pageTitle, settings.name, "Falcon API");
-        setPageContent(DOM.wm, `© ${currentYear} ${creator}. Semua hak dilindungi.`);
-        setPageContent(DOM.appName, settings.name, "Falcon API");
+        setPageContent(DOM.wm, `© ${currentYear} ${creator}. Reservados todos los derechos. `);
+        setPageContent(DOM.appName, settings.name, "Nagato API");
         setPageContent(DOM.sideNavName, settings.name || "API");
         setPageContent(DOM.versionBadge, settings.version, "v1.0");
         setPageContent(DOM.versionHeaderBadge, settings.header?.status, "Aktif!");
-        setPageContent(DOM.appDescription, settings.description, "Dokumentasi API simpel dan mudah digunakan.");
+        setPageContent(DOM.appDescription, settings.description, "Documentación de la API sencilla y fácil de usar. ");
 
         // Mengatur gambar banner
         if (DOM.dynamicImage) {
