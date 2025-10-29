@@ -401,7 +401,7 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
     // --- Render Kategori dan Item API ---
     const renderApiCategories = () => {
         if (!DOM.apiContent || !settings.categories || !settings.categories.length) {
-            displayErrorState("Tidak ada kategori API yang ditemukan.");
+            displayErrorState("No se encontraron categorías de API .");
             return;
         }
         DOM.apiContent.innerHTML = ''; 
