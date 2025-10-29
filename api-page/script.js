@@ -343,9 +343,9 @@ const showToast = (mensaje, tipo = 'info', titulo = 'Notificación') => {
         if (!settings || Object.keys(settings).length === 0) return;
 
         const currentYear = new Date().getFullYear();
-        const creator = settings.apiSettings?.creator || 'FlowFalcon';
+        const creator = settings.apiSettings?.creator || 'BrayanX330';
 
-        setPageContent(DOM.pageTitle, settings.name, "Falcon API");
+        setPageContent(DOM.pageTitle, settings.name, "Nagato API");
         setPageContent(DOM.wm, `© ${currentYear} ${creator}. Reservados todos los derechos. `);
         setPageContent(DOM.appName, settings.name, "Nagato API");
         setPageContent(DOM.sideNavName, settings.name || "API");
