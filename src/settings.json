@@ -1,4 +1,3 @@
-
 {
   "name": "Nagato-Api UI",
   "version": "v3.9.0",
@@ -66,6 +65,19 @@
           "status": "listo",
           "params": {
             "url": "Enlace del video de YouTube"
+          }
+        },
+        {
+          "name": "WelcomeV2",
+          "desc": "Genera una imagen de bienvenida personalizada para nuevos miembros",
+          "path": "/welcomev2?username=&guildName=&memberCount=&avatar=&background=",
+          "status": "listo",
+          "params": {
+            "username": "Nombre del usuario",
+            "guildName": "Nombre del grupo",
+            "memberCount": "Número de miembro",
+            "avatar": "URL del avatar del usuario",
+            "background": "URL del fondo para la tarjeta de bienvenida"
           }
         }
       ]
